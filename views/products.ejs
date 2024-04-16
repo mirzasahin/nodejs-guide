@@ -4,27 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>Products</h1>
-    <ul>
-        <% products.forEach(product => { %>
 
-        <% if (product.price >= 30000 && product.isActive) { %>
-        <li>
+    <%- include('partials/nav') %>
 
-            <a href="/products/<%= product.id %>">
-                <%= product.name %> - <%= product.price %>₺
-            </a>
 
-        </li>
-        <% } %>
+    <div class="container mt-3">
+        <h1>Products</h1>
 
-        <% }) %>
-    </ul>
+        <div class="row">
+            <div class="col-12">
+                <% products.forEach(product => { %>
 
+                    <%- include('partials/product', product) %>
+
+                <% }) %>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 
