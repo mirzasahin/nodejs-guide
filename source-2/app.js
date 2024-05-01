@@ -3,6 +3,13 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+app.use(express.static('public'))
+
+app.use('/test', (req, res, next) => {
+    console.log('This is MIDDLEWARE')
+    next()
+})
+
 app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'))
 })
@@ -12,6 +19,10 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/contact', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'contact.html'))
+})
+
+app.get('/test', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'contact.html'))
 })
 
