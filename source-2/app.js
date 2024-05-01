@@ -1,39 +1,31 @@
-const path = require('path')
-const express = require('express')
-const app = express()
-const port = 3000
+const path = require("path");
+const express = require("express");
+const exphbs = require('express-handlebars');
+const app = express();
+const port = 3000;
+const hostname = '127.0.0.1'
 
-app.use(express.static('public'))
+app.use(express.static("public"));
 
-app.use('/test', (req, res, next) => {
-    console.log('This is MIDDLEWARE')
-    next()
-})
+app.engine('handlebars', exphbs.engine());
+app.set('view engine', 'handlebars');
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'index.html'))
+    res.render('site/index')
 })
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'about.html'))
+    res.render('site/about')
 })
 
-app.get('/contact', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'contact.html'))
+app.get('/blog', (req, res) => {
+    res.render('site/blog')
 })
 
-app.get('/test', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'contact.html'))
+app.get('/blog', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'site/blog.html'))
 })
 
-app.get('/users/:userID/movies/:moviesID', (req, res) => {
-    res.send(
-        `   <h1> Username: ${req.params.userID} </h1>
-            <h1> Film name: ${req.params.moviesID} </h1>
-        `
-    )
-})
-
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.listen(port, hostname, () => {
+  console.log(`Server is running, http://${hostname}:${port}/`);
+});
